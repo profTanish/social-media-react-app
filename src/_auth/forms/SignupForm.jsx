@@ -1,40 +1,69 @@
-const SignupForm = () => {
-    return (
-        <div className="flex items-center justify-center">
-          <form className="w-1/2">
-            <div>
-              <label htmlFor="email" className="block mb-2.5">
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="Your email"
-                id="email"
-                className="w-full px-5 py-2.5 rounded-md bg-dark-2 placeholder:text-light-1 placeholder:opacity-30 placeholder:text-sm outline-none"
-              />
-            </div>
-    
-            <div className="mt-5">
-              <label htmlFor="password" className="block mb-2.5">
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="Your password"
-                id="password"
-                className="w-full px-5 py-2.5 rounded-md bg-dark-2 placeholder:text-light-1 placeholder:opacity-30 placeholder:text-sm outline-none"
-              />
-            </div>
-            <div className="mt-2.5 mb-5">
-              <input type="checkbox" id="remember" className="mr-2.5" />
-              <label htmlFor="remember">Remember me</label>
-            </div>
-            <button className="bg-primary-blue border-2 border-primary-blue py-2.5 w-full rounded-md transition-all duration-300 hover:bg-transparent hover:border-light-1">
-              Sign In
-            </button>
-          </form>
-        </div>
-      );
-    };
-    
-    export default SignupForm;
+import { Link } from "react-router-dom";
+ 
+ const SignupForm = () => {
+   return (
+     <div className="flex items-center justify-center">
+       <form className="w-1/2">
+         <div>
+           <label htmlFor="name" className="block mb-2.5">
+             Name
+           </label>
+           <input
+             type="text"
+             placeholder="Your name"
+             id="name"
+             className="input"
+           />
+         </div>
+ 
+         <div className="mt-5">
+           <label htmlFor="username" className="block mb-2.5">
+             Email
+           </label>
+           <input
+             type="text"
+             placeholder="Your username"
+             id="username"
+             className="input"
+           />
+         </div>
+ 
+         <div className="mt-5">
+           <label htmlFor="email" className="block mb-2.5">
+             Email
+           </label>
+           <input
+             type="email"
+             placeholder="Your email"
+             id="email"
+             className="input"
+           />
+         </div>
+ 
+         <div className="mt-5">
+           <label htmlFor="password" className="block mb-2.5">
+             Password
+           </label>
+           <input
+             type="password"
+             placeholder="Your password"
+             id="password"
+             className="input"
+             />
+         </div>
+         <p className="text-xs opacity-40 mt-5 mb-2.5">
+           By clicking Sign Up you agree to Terms, Data Policy and Cookie Policy.{" "}
+         </p>
+         <button className="btn-form">Sign Up</button>
+         <p className="mt-2.5 text-sm">
+           Already have an account?{" "}
+           <Link to="/sign-in" className="text-primary-blue">
+             Sign in
+           </Link>
+         </p>
+       </form>
+     </div>
+   );
+  };
+ 
+  export default SignupForm;

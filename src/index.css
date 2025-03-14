@@ -6,3 +6,13 @@ body {
     background-color: #151519;
     color: #f9fafd;
   }
+
+  @layer components {
+    .input {
+      @apply w-full px-5 py-2.5 rounded-md bg-dark-2 placeholder:text-light-1 placeholder:opacity-30 placeholder:text-sm outline-none;
+    }
+  
+    .btn-form {
+      @apply bg-primary-blue border-2 border-primary-blue py-2.5 w-full rounded-md transition-all duration-300 hover:bg-transparent hover:border-light-1;
+    }
+  }
