@@ -1,21 +1,48 @@
 import { useForm } from "react-hook-form";
- import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
  
  import { createUserAccount } from "../../lib/appwrite/api";
  
  import Loader from "../../components/shared/Loader";
  import toast from "react-hot-toast";
+ import {
+  useCreateUserAccount,
+  useLoginAccount,
+ } from "../../lib/react-query/authQueriesAndMutations";
+ import { useUser } from "../../context/AuthContext";
  
  const SignupForm = () => {
-   const { register, formState, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { register, formState, handleSubmit, reset } = useForm();
    const { errors } = formState;
-   const isLoading = false;
+
+   const { checkAuthUser, isLoading: isUserLoading } = useUser();
+ 
+   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
+     useCreateUserAccount();
+ 
+   const { mutateAsync: loginAccount, isPending: isLoggingIn } =
+     useLoginAccount();
  
    async function onSubmit(data) {
      const newUser = await createUserAccount(data);
+
      if (!newUser) return toast.error("Sign up failed. Please try again!");
  
-     // const session = await signInAccount()
+     const session = await loginAccount({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (!session) return toast.error("Login failed! Please try again.");
+
+    const isLoggedIn = await checkAuthUser();
+    if (isLoggedIn) {
+      reset();
+      navigate("/");
+    } else {
+      toast.error("Sign up failed! Please try again.");
+    }
    }
  
    return (
@@ -104,7 +131,7 @@ import { useForm } from "react-hook-form";
            By clicking Sign Up you agree to Terms, Data Policy and Cookie Policy.{" "}
            </p>
            <button className="btn-form">
-           {isLoading ? (
+           {isCreatingAccount ? (
              <div className="flex justify-center items-center gap-2">
                <Loader /> Loading...
              </div>
