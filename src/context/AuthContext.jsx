@@ -24,7 +24,6 @@ import { createContext, useContext, useEffect, useState } from "react";
  
  const AuthProvider = ({ children }) => {
    const navigate = useNavigate();
- 
    const [user, setUser] = useState(initialUser);
    const [isAuthenticated, setIsAuthenticated] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +50,6 @@ import { createContext, useContext, useEffect, useState } from "react";
        return false;
      } catch (error) {
        console.log(error);
-       return false;
      } finally {
        setIsLoading(false);
      }
@@ -65,7 +63,7 @@ import { createContext, useContext, useEffect, useState } from "react";
        cookieFallback === null ||
        cookieFallback === undefined
      )
-       navigate("/sign-in");
+       navigate("/sign-up");
  
      checkAuthUser();
    }, []);
@@ -80,7 +78,9 @@ import { createContext, useContext, useEffect, useState } from "react";
          checkAuthUser,
          isLoading,
        }}
-     ></AuthContext.Provider>
+       >
+       {children}
+     </AuthContext.Provider>
    );
  };
  

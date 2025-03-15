@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
  
- import { createUserAccount } from "../../lib/appwrite/api";
- 
  import Loader from "../../components/shared/Loader";
  import toast from "react-hot-toast";
  import {
@@ -38,7 +36,7 @@ import { Link, useNavigate } from "react-router-dom";
 
     const isLoggedIn = await checkAuthUser();
     if (isLoggedIn) {
-      reset();
+      // reset();
       navigate("/");
     } else {
       toast.error("Sign up failed! Please try again.");

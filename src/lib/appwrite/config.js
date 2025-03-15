@@ -12,8 +12,7 @@ import { Client, Account, Databases, Storage, Avatars } from "appwrite";
  
  export const client = new Client();
  
- client.setProject(appwriteConfig.projectId);
- client.setEndpoint(appwriteConfig.url);
+ client.setEndpoint(appwriteConfig.url).setProject(appwriteConfig.projectId);
  
  export const account = new Account(client);
  export const databases = new Databases(client);
