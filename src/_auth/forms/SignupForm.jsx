@@ -1,12 +1,21 @@
 import { useForm } from "react-hook-form";
  import { Link } from "react-router-dom";
  
+ import { createUserAccount } from "../../lib/appwrite/api";
+ 
+ import Loader from "../../components/shared/Loader";
+ import toast from "react-hot-toast";
+ 
  const SignupForm = () => {
    const { register, formState, handleSubmit } = useForm();
    const { errors } = formState;
+   const isLoading = false;
  
-   function onSubmit(data) {
-     console.log(data);
+   async function onSubmit(data) {
+     const newUser = await createUserAccount(data);
+     if (!newUser) return toast.error("Sign up failed. Please try again!");
+ 
+     // const session = await signInAccount()
    }
  
    return (
@@ -94,7 +103,15 @@ import { useForm } from "react-hook-form";
          <p className="text-xs opacity-40 mt-5 mb-2.5">
            By clicking Sign Up you agree to Terms, Data Policy and Cookie Policy.{" "}
            </p>
-         <button className="btn-form">Sign Up</button>
+           <button className="btn-form">
+           {isLoading ? (
+             <div className="flex justify-center items-center gap-2">
+               <Loader /> Loading...
+             </div>
+           ) : (
+             "Sign Up"
+           )}
+         </button>
          <p className="mt-2.5 text-sm">
            Already have an account?{" "}
            <Link to="/sign-in" className="text-primary-blue">
