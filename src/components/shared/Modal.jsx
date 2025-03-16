@@ -44,7 +44,7 @@ import { cloneElement, useContext, useState } from "react";
            <HiXMark />
          </button>
  
-         <div>{cloneElement(children, { onCloseModal: close })}</div>
+         <div>{cloneElement(children, { onClose: close })}</div>
        </div>
      </div>,
      document.body
