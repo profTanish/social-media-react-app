@@ -9,7 +9,7 @@ body {
 
   @layer components {
     .input {
-      @apply w-full px-5 py-2.5 rounded-md bg-dark-2 placeholder:text-light-1 placeholder:opacity-30 placeholder:text-sm outline-none;
+      @apply w-full px-5 py-3 rounded-md bg-dark-2 placeholder:text-light-1 placeholder:opacity-30 text-sm placeholder:text-sm outline-none;
     }
   
     .btn-form {
