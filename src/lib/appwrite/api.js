@@ -1,5 +1,5 @@
 import { ID, Query } from "appwrite";
- import { account, appwriteConfig, avatars, databases } from "./config";
+import { account, appwriteConfig, avatars, databases, storage } from "./config";
  
  export async function createUserAccount(user) {
    try {
@@ -88,6 +88,86 @@ export async function getCurrentUser() {
     if (!curUser) throw Error;
 
     return curUser.documents.at(0);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createPost(post) {
+  try {
+    const uploadedImageFile = await uploadFile(post.image[0]);
+
+    if (!uploadedImageFile) throw Error;
+
+    const imagePath = await getFilePreview(uploadedImageFile.$id);
+
+    if (!imagePath) {
+      await deleteFile(uploadedImageFile.$id);
+      throw Error;
+    }
+
+    const tags = post.tags?.split(",") || [];
+
+    const newPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      ID.unique(),
+      {
+        creator: post.userId,
+        caption: post.caption,
+        imageUrl: imagePath,
+        imageId: uploadedImageFile.$id,
+        location: post.location,
+        tags: tags,
+      }
+    );
+
+    if (!newPost) {
+      await deleteFile(uploadedImageFile.$id);
+      throw Error;
+    }
+
+    return newPost;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function uploadFile(file) {
+  try {
+    const uploadedFile = await storage.createFile(
+      appwriteConfig.storageId,
+      ID.unique(),
+      file
+    );
+
+    return uploadedFile;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getFilePreview(fileId) {
+  try {
+    const filePath = storage.getFilePreview(
+      appwriteConfig.storageId,
+      fileId,
+      2000,
+      2000,
+      "top"
+    );
+
+    return filePath;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteFile(fileId) {
+  try {
+    await storage.deleteFile(appwriteConfig.storageId, fileId);
+
+    return { status: "ok" };
   } catch (error) {
     console.log(error);
   }
