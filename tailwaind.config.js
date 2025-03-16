@@ -14,6 +14,7 @@
               "light-2": "#B1B3BC",
               "primary-blue": "#6483F0",
               "danger-1": "#F55656",
+              "primary-blue-30": "#6482f01a",
               "success-1": "#31DE4B",
             },
           },

@@ -1,3 +1,5 @@
+import { Link, NavLink } from "react-router-dom";
+
 import {
   HiOutlineBookmark,
   HiOutlineCog6Tooth,
@@ -5,11 +7,19 @@ import {
   HiOutlineSquares2X2,
   HiOutlineUsers,
 } from "react-icons/hi2";
-import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
     return (
-        <aside className="bg-dark-2 p-5 max-w-60 border-r border-gray-800">
+    <aside className="bg-dark-2 p-5 border-r border-gray-800 row-span-full">
+       <Link to="/" className="block mt-5 mb-24">
+         <img
+           src="/public/imgs/logo.svg"
+           alt="logo"
+           width="200px"
+           className="mx-auto"
+         />
+       </Link>
+
           <ul className="flex flex-col gap-4">
             <li>
               <NavLink to="/" className="nav-link">
@@ -26,9 +36,9 @@ const Sidebar = () => {
             </li>
     
             <li>
-              <NavLink to="/users" className="nav-link">
+              <NavLink to="/profiles" className="nav-link">
                 <HiOutlineUsers className="text-2xl" />
-                <span>Users</span>
+                <span>Profiles</span>
               </NavLink>
             </li>
     

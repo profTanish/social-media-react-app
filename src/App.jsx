@@ -1,15 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
  
-import AuthLayout from "./_auth/AuthLayout";
-import SigninForm from "./_auth/forms/SigninForm";
-import SignupForm from "./_auth/forms/SignupForm";
-import RootLayout from "./_root/RootLayout";
-import { Home } from "./_root/pages";
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import { QueryProvider } from "./lib/react-query/QueryProvider";
 import AuthProvider from "./context/AuthContext";
 
+import AuthLayout from "./_auth/AuthLayout";
+ import SigninForm from "./_auth/forms/SigninForm";
+ import SignupForm from "./_auth/forms/SignupForm";
+ import RootLayout from "./_root/RootLayout";
+ import {
+   Explore,
+   Home,
+   Profile,
+   Profiles,
+   Saved,
+   Settings,
+ } from "./_root/pages";
+ 
 const App = () => {
   return (
     <main>
@@ -24,6 +33,11 @@ const App = () => {
 
               <Route element={<RootLayout />}>
                 <Route index element={<Home />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/profiles" element={<Profiles />} />
+                <Route path="/profile/:id" element={<Profile />} />
+                <Route path="/saved" element={<Saved />} />
+                <Route path="/settings" element={<Settings />} />
               </Route>
             </Routes>
           </AuthProvider>
