@@ -60,8 +60,8 @@ import { createContext, useContext, useEffect, useState } from "react";
  
      if (
        cookieFallback === "[]" ||
-       cookieFallback === null ||
-       cookieFallback === undefined
+       cookieFallback === undefined ||
+       cookieFallback === null
      )
        navigate("/sign-up");
  

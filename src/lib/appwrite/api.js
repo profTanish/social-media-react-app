@@ -18,7 +18,7 @@ import { ID, Query } from "appwrite";
        accountId: newAccount.$id,
        name: newAccount.name,
        email: newAccount.email,
-       username: newAccount.username,
+       username: user.username,
        imageUrl: avatarUrl,
      });
  
@@ -46,10 +46,7 @@ import { ID, Query } from "appwrite";
  
  export async function loginAccount(user) {
   try {
-    const session = await account.createEmailSession(
-      user.email,
-      user.password
-    );
+    const session = await account.createEmailSession(user.email, user.password);
 
     return session;
   } catch (error) {
@@ -80,7 +77,8 @@ export async function getCurrentUser() {
 
     if (!curUser) throw Error;
 
-    return curUser.documents[0];
+    console.log(curUser.documents.at(0));
+    return curUser.documents.at(0);
   } catch (error) {
     console.log(error);
   }
