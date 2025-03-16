@@ -77,7 +77,6 @@ export async function getCurrentUser() {
 
     if (!curUser) throw Error;
 
-    console.log(curUser.documents.at(0));
     return curUser.documents.at(0);
   } catch (error) {
     console.log(error);
