@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 body {
-    background-color: #151519;
-    color: #f9fafd;
-  }
+  background-color: #151519;
+  color: #f9fafd;
+}
 
   @layer components {
     .input {
@@ -15,9 +15,18 @@ body {
     .btn-form {
       @apply bg-primary-blue border-2 border-primary-blue py-2.5 w-full rounded-md transition-all duration-300 hover:bg-transparent hover:border-light-1;
     }
+
+    .nav-link {
+      @apply flex gap-2.5 text-light-2 pl-2.5 pr-10 py-4 transition-all duration-300 hover:bg-primary-blue hover:text-white rounded-sm;
+    }
+  
+    .nav-link.active {
+      background-color: #6483f0;
+      color: #f9fafd;
+    }
   }
 
-
+  /* HTML: <div class="loader"></div> */
   .loader {
     width: 24px;
     padding: 4px;
