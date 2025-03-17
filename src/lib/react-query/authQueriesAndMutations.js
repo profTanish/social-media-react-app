@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   createPost,
   createUserAccount,
+  getRecentPosts,
   loginAccount,
   logoutAccount,
 } from "../appwrite/api";
@@ -32,5 +33,12 @@ export const useCreatePost = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: "getRecentPosts" });
     },
+  });
+};
+
+export const useGetRecentPosts = () => {
+  return useQueryClient({
+    queryKey: "getRecentPosts",
+    queryFn: getRecentPosts,
   });
 };
