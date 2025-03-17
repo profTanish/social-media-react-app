@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Modal from "../../components/shared/Modal";
 import CreatePostForm from "../../components/ui/CreatePostForm";
 import { useUser } from "../../context/AuthContext";
-import Button from "./Button";
 
 const CreatePost = () => {
   const { user } = useUser();

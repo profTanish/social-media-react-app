@@ -8,7 +8,6 @@ import Loader from "../shared/Loader";
 const CreatePostForm = ({ onClose }) => {
     const { mutateAsync: createPost, isPending: isCreatingPost } =
         useCreatePost();
-    console.log(isCreatingPost);
     const { user } = useUser();
 
     const { register, formState, handleSubmit, reset } = useForm({
@@ -22,7 +21,6 @@ const CreatePostForm = ({ onClose }) => {
     const { errors } = formState;
 
     async function onSubmit(data) {
-        console.log(data);
         const newPost = await createPost({
             userId: user.id,
             ...data,

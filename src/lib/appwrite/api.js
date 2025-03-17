@@ -106,7 +106,7 @@ export async function createPost(post) {
       throw Error;
     }
 
-    const tags = post.tags?.split(",") || [];
+    const tags = post.tags?.split(", ") || [];
 
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -114,7 +114,7 @@ export async function createPost(post) {
       ID.unique(),
       {
         creator: post.userId,
-        caption: post.caption,
+        caption: post.description,
         imageUrl: imagePath,
         imageId: uploadedImageFile.$id,
         location: post.location,
@@ -180,7 +180,7 @@ export async function getRecentPosts() {
       appwriteConfig.postCollectionId,
       [Query.orderDesc("$createdAt"), Query.limit(20)]
     );
-    console.log(posts);
+    
     if (!posts) throw Error;
 
     return posts;
