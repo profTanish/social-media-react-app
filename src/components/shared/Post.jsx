@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
- import { formatDate } from "../../constants";
+import { formatDate } from "../../lib/utils";
+import PostOperations from "./PostOperations";
+import { useUser } from "../../context/AuthContext";
  
  const Post = ({ post }) => {
-   console.log(post);
+  // Add location display
+
    const {
-     creator: {
-       $id: userId,
-       name: userName,
-       username: userUsername,
-       imageUrl: userImageUrl,
-     },
+     creator: { $id: userId, name: userName, imageUrl: userImageUrl },
      caption,
      imageUrl: postImageUrl,
      location,
      tags,
      $createdAt: postCreatedAt,
    } = post;
+
+   const { user } = useUser();
+   console.log("Post -> user: ", user);
  
    const postFormatedDate = formatDate(postCreatedAt);
  
@@ -42,6 +43,8 @@ import { Link } from "react-router-dom";
        <div className="rounded-md overflow-hidden text-center">
          <img src={postImageUrl} alt="post" />
        </div>
+
+       <PostOperations post={post} userId={user.id} />
  
        <ul className="flex items-center gap-4">
          {tags.map((tag) => (
