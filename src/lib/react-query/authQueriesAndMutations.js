@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createPost,
   createUserAccount,
+  deletePost,
   deleteSavedPost,
   getCurrentUser,
   getRecentPosts,
@@ -9,7 +10,9 @@ import {
   loginAccount,
   logoutAccount,
   savePost,
+  updatePost,
 } from "../appwrite/api";
+import toast from "react-hot-toast";
  
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -53,7 +56,6 @@ export const useLikePost = () => {
   return useMutation({
     mutationFn: ({ postId, likesArray }) => likePost(postId, likesArray),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["getPostById", data.$id] });
       queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getCurrentUser"] });
@@ -91,5 +93,32 @@ export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: ["getCurrentUser"],
     queryFn: getCurrentUser,
+  });
+};
+
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (post) => updatePost(post),
+    onSuccess: () => {
+      toast.success("Post successfully updated!");
+      queryClient.invalidateQueries({
+        queryKey: ["getRecentPosts"],
+      });
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, imageId }) => deletePost(postId, imageId),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["getRecentPosts"],
+      });
+    },
   });
 };

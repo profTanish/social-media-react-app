@@ -238,3 +238,74 @@ export async function deleteSavedPost(savedRecordId) {
     console.log(error);
   }
 }
+
+export async function updatePost(post) {
+  const hasFileToUpdate = post.image.length > 0;
+
+  try {
+    let image = {
+      imageUrl: post.imageUrl,
+      imageId: post.imageId,
+    };
+
+    if (hasFileToUpdate) {
+      const uploadedImageFile = await uploadFile(post.image[0]);
+      if (!uploadedImageFile) throw Error;
+
+      const imagePath = await getFilePreview(uploadedImageFile.$id);
+
+      if (!imagePath) {
+        await deleteFile(uploadedImageFile.$id);
+        throw Error;
+      }
+
+      image = { ...image, imageUrl: imagePath, imageId: uploadedImageFile.$id };
+    }
+
+    const tags = post?.tags?.split(", ") || [];
+
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      post.postId,
+      {
+        caption: post.description,
+        imageUrl: image.imageUrl,
+        imageId: image.imageId,
+        location: post.location,
+        tags: tags,
+      }
+    );
+
+    if (!updatedPost) {
+      if (hasFileToUpdate) await deleteFile(image.imageId);
+      throw Error;
+    }
+
+    if (hasFileToUpdate) {
+      await deleteFile(post.imageId);
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deletePost(postId, imageId) {
+  if (!postId || !imageId) return;
+
+  try {
+    await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    );
+
+    await deleteFile(imageId);
+
+    return { status: "ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
