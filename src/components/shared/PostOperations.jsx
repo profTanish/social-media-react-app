@@ -32,7 +32,7 @@ import {
   
     useEffect(() => {
       setIsSaved(!!savedPostRecord); // !! - automatic boolean assigment '' => !'' => !true => false
-    }, [curUser]);
+    }, [curUser, savedPostRecord]);
   
     const onLikePost = (e) => {
       e.stopPropagation();

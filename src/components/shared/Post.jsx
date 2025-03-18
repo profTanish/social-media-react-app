@@ -36,8 +36,6 @@ import { HiOutlineMapPin } from "react-icons/hi2";
            <p className="text-sm text-light-2">{postFormatedDate}</p>
          </div>
        </figure>
- 
-       <p>{caption}</p>
 
        {location && (
          <div className="flex items-center gap-1 text-light-2">
@@ -46,6 +44,8 @@ import { HiOutlineMapPin } from "react-icons/hi2";
          </div>
        )}
  
+       <p>{caption}</p>
+
        <div className="rounded-md overflow-hidden text-center">
          <img src={postImageUrl} alt="post" />
        </div>
