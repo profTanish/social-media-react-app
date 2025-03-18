@@ -4,12 +4,14 @@ import PostOperations from "./PostOperations";
 import { useUser } from "../../context/AuthContext";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import EditPost from "../ui/EditPost";
+import DeletePost from "../ui/DeletePost";
 
  const Post = ({ post }) => {
    const {
     creator: { $id: creatorId, name: userName, imageUrl: userImageUrl },
      caption,
      imageUrl: postImageUrl,
+     imageId,
      location,
      tags,
      $createdAt: postCreatedAt,
@@ -38,7 +40,12 @@ import EditPost from "../ui/EditPost";
            </div>
            </figure>
  
- {user.id === creatorId && <EditPost post={post} />}
+           {user.id === creatorId && (
+           <div>
+             <EditPost post={post} />
+             <DeletePost post={post} />
+           </div>
+         )}
 </div>
 
        {location && (

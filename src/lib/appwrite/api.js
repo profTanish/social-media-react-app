@@ -293,7 +293,7 @@ export async function updatePost(post) {
 }
 
 export async function deletePost(postId, imageId) {
-  if (!postId || !imageId) return;
+  if (!postId || !imageId) throw Error;
 
   try {
     await databases.deleteDocument(
