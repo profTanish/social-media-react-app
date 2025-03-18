@@ -6,12 +6,12 @@ import Modal from "../../components/shared/Modal";
  const EditPost = ({ post }) => {
    return (
      <Modal>
-       <Modal.Open opens="post-form">
+       <Modal.Open opens="edit">
          <button>
            <HiOutlinePencilSquare className="text-xl" />
          </button>
        </Modal.Open>
-       <Modal.Window name="post-form">
+       <Modal.Window name="edit">
          <CreatePostForm postToEdit={post} />
        </Modal.Window>
      </Modal>

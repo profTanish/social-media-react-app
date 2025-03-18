@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { formatDate } from "../../lib/utils";
 import PostOperations from "./PostOperations";
 import { useUser } from "../../context/AuthContext";
-import { HiOutlineMapPin, HiOutlinePencilSquare } from "react-icons/hi2";
+import { HiOutlineMapPin } from "react-icons/hi2";
 import EditPost from "../ui/EditPost";
 
  const Post = ({ post }) => {
