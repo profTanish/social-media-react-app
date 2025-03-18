@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import { formatDate } from "../../lib/utils";
 import PostOperations from "./PostOperations";
 import { useUser } from "../../context/AuthContext";
+import { HiOutlineMapPin } from "react-icons/hi2";
  
  const Post = ({ post }) => {
-  // Add location display
-
    const {
      creator: { $id: userId, name: userName, imageUrl: userImageUrl },
      caption,
@@ -39,6 +38,13 @@ import { useUser } from "../../context/AuthContext";
        </figure>
  
        <p>{caption}</p>
+
+       {location && (
+         <div className="flex items-center gap-1 text-light-2">
+           <HiOutlineMapPin className="text-xl" />
+           {location}
+         </div>
+       )}
  
        <div className="rounded-md overflow-hidden text-center">
          <img src={postImageUrl} alt="post" />
