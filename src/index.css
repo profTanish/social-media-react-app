@@ -30,7 +30,7 @@ body {
     }
     
     .nav-link {
-      @apply flex gap-2.5 text-light-2 pl-2.5 pr-10 py-4 transition-all duration-300 hover:bg-primary-blue hover:text-white rounded-sm;
+      @apply flex gap-2.5 text-light-2 pl-2.5 pr-10 py-4 transition-all duration-300 hover:bg-primary-blue-30 hover:text-white rounded-sm;
     }
   
     .nav-link.active {
