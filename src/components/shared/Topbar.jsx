@@ -23,16 +23,7 @@ const Topbar = () => {
   }, [isSuccess, navigate]);
 
   return (
-   <section className="flex items-center justify-between p-5 bg-dark-2 border-b border-gray-800">
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Search anything..."
-          className="input bg-dark-1 pl-10"
-        />
-        <HiMagnifyingGlass className="absolute top-1/2 left-2.5 translate-y-[-50%] opacity-30 text-xl" />
-      </div>
-
+    <section className="flex items-center justify-end p-5 bg-dark-2 border-b border-gray-800">
       <div className="flex items-center gap-4">
        <Link to={`/profile/${id}`}>
           <div className="flex items-center gap-4">
