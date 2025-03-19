@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
 const Explore = () => {
+  const [query, setQuery] = useState("");
+
   return (
     <div className="w-full">
        <h3 className="text-lg font-medium mb-2.5">Search post:</h3>
@@ -11,6 +14,8 @@ const Explore = () => {
           type="text"
           placeholder="Search anything..."
           className="input bg-dark-2 pl-10 w-80 text-light-2"
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
         />
         <HiMagnifyingGlass className="absolute top-1/2 left-2.5 translate-y-[-50%] opacity-30 text-xl" />
       </div>
