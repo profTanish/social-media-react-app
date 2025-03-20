@@ -1,11 +1,9 @@
 import Loader from "../../components/shared/Loader";
  import PostListItem from "../../components/shared/PostListItem";
- import PostsList from "../../components/shared/PostsList";
  import { useGetSavedPosts } from "../../lib/react-query/authQueriesAndMutations";
 
 const Saved = () => {
   const { data: savedPosts } = useGetSavedPosts();
-   console.log(savedPosts);
  
    if (!savedPosts)
      return (
@@ -20,7 +18,7 @@ const Saved = () => {
  
        <ul className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
          {savedPosts.documents.map((post) => (
-           <PostListItem post={post.post} />
+           <PostListItem key={post.$id} post={post} />
          ))}
        </ul>
      </div>

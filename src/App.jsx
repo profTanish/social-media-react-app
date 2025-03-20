@@ -18,6 +18,7 @@ import AuthLayout from "./_auth/AuthLayout";
    Saved,
    Settings,
  } from "./_root/pages";
+ import PostDetails from "./_root/pages/PostDetails";
  
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
               <Route element={<RootLayout />}>
                 <Route index element={<Home />} />
                 <Route path="/explore" element={<Explore />} />
+                <Route path="/posts/:id" element={<PostDetails />} />
                 <Route path="/profiles" element={<Profiles />} />
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="/saved" element={<Saved />} />
