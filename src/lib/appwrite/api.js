@@ -363,3 +363,19 @@ export async function getUsers() {
     console.log(error);
   }
 }
+
+export async function getSavedPosts() {
+  try {
+    const savedPosts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.savedCollectionId,
+      [Query.orderDesc("$updatedAt")]
+    );
+
+    if (!savedPosts) throw Error;
+
+    return savedPosts;
+  } catch (error) {
+    console.log(error);
+  }
+}
