@@ -41,7 +41,7 @@ import DeletePost from "../ui/DeletePost";
            </figure>
  
            {user.id === creatorId && (
-           <div>
+           <div className="space-x-2">
              <EditPost post={post} />
              <DeletePost post={post} />
            </div>

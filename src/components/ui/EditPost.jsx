@@ -8,7 +8,7 @@ import Modal from "../../components/shared/Modal";
      <Modal>
        <Modal.Open opens="edit">
          <button>
-           <HiOutlinePencilSquare className="text-xl" />
+           <HiOutlinePencilSquare className="text-xl hover:text-primary-blue" />
          </button>
        </Modal.Open>
        <Modal.Window name="edit">
