@@ -2,12 +2,16 @@ import { Link, useParams } from "react-router-dom";
  import { useGetPostById } from "../../lib/react-query/authQueriesAndMutations";
  import { useUser } from "../../context/AuthContext";
  import Loader from "../../components/shared/Loader";
- import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+ import {
+    HiOutlineArrowUturnLeft,
+    HiOutlineArrowsPointingOut,
+  } from "react-icons/hi2";
  import EditPost from "../../components/ui/EditPost";
  import DeletePost from "../../components/ui/DeletePost";
  import { formatDate } from "../../lib/utils";
  import Tags from "../../components/shared/Tags";
  import PostOperations from "../../components/shared/PostOperations";
+ import Modal from "../../components/shared/Modal";
  
 const PostDetails = () => {
     const { id } = useParams();
@@ -40,12 +44,22 @@ const PostDetails = () => {
        </Link>
  
        <div className="grid grid-cols-[1fr_2fr] p-5 rounded-md bg-dark-2 gap-5 max-w-4xl">
-         <div className="h-80">
+         <div className="h-80 relative">
            <img
              src={imageUrl}
              alt="post"
              className="object-cover w-full h-full"
            />
+           <Modal>
+             <Modal.Open opens="image">
+               <button className="text-xl absolute top-4 right-4 cursor-pointer p-1 bg-primary-blue-50 rounded-full">
+                 <HiOutlineArrowsPointingOut />
+               </button>
+             </Modal.Open>
+             <Modal.Window name="image">
+               <img src={imageUrl} alt="post" />
+             </Modal.Window>
+           </Modal>
          </div>
  
          <div className="flex flex-col">
