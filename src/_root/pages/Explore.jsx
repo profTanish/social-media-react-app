@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import { Link } from "react-router-dom";
 
 import SearchResults from "../../components/shared/SearchResults";
 import PostsList from "../../components/shared/PostsList";
@@ -10,14 +9,19 @@ import {
 } from "../../lib/react-query/authQueriesAndMutations";
 import useDebounce from "../../hooks/useDebounce";
 import Loader from "../../components/shared/Loader";
+import { useInView } from "react-intersection-observer"
 
 const Explore = () => {
+  const { ref, inView } = useInView();
   const [query, setQuery] = useState("");
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
-
   const debouncedQuery = useDebounce(query, 500);
   const { data: searchedPosts, isFetching: isSearchingPosts } =
     useGetPostsBySearch(debouncedQuery);
+
+  useEffect(() => {
+    if (inView && !query) fetchNextPage();
+  }, [inView, query, fetchNextPage]);
 
   if (!posts)
     return (
@@ -33,8 +37,8 @@ const Explore = () => {
 
   return (
     <div className="w-full">
-       <h3 className="text-lg font-medium mb-2.5">Search post:</h3>
- 
+      <h3 className="text-lg font-medium mb-2.5">Search post:</h3>
+
       <div className="relative">
         <input
           type="text"
@@ -47,26 +51,38 @@ const Explore = () => {
       </div>
 
       <div className="flex items-center justify-between mt-5 mb-8">
-         <h3>Recent Post</h3>
-         <div className="flex items-center gap-4 text-light-2">
-           <button className="text-light-1">Feeds</button>
-           <button>Popular</button>
-           <button>Today</button>
-           <button>Latest</button>
-         </div>
-       </div>
-       
-       {shouldShowSearchResults ? (
-         <SearchResults />
-       ) : shouldShowPosts ? (
-         <p>You've reached the end.</p>
-       ) : (
-         posts.pages.map((item, i) => (
-           <PostsList key={i} posts={item.documents} />
-         ))
-       )}
+        <h3>Recent Post</h3>
+        <div className="flex items-center gap-4 text-light-2">
+          <button className="text-light-1">Feeds</button>
+          <button>Popular</button>
+          <button>Today</button>
+          <button>Latest</button>
+        </div>
+      </div>
+
+      {shouldShowSearchResults ? (
+        <SearchResults
+          searchedPosts={searchedPosts}
+          isSearchingPosts={isSearchingPosts}
+        />
+      ) : shouldShowPosts ? (
+        <p>You've reached the end.</p>
+      ) : (
+        posts.pages.map((item, i) => (
+          <PostsList key={i} posts={item.documents} />
+        ))
+      )}
+
+      {hasNextPage && !query && (
+        <div
+          ref={ref}
+          className="mt-10 flex items-center justify-center w-full"
+        >
+          <Loader />
+        </div>
+      )}
     </div>
   );
-  };
-  
-  export default Explore;
+};
+
+export default Explore;

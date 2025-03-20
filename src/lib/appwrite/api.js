@@ -311,7 +311,7 @@ export async function deletePost(postId, imageId) {
 }
 
 export async function getPosts({pageParam}) {
-  const queries = [Query.orderDesc("$updatedAt"), Query.limit(10)];
+  const queries = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
   if (pageParam) {
     queries.push(Query.cursorAfter(pageParam.toString()));
@@ -332,7 +332,7 @@ export async function getPosts({pageParam}) {
   }
 }
 
-export async function getPostsBySearch({searchQuery}) {
+export async function getPostsBySearch(searchQuery) {
   try {
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
