@@ -10,6 +10,7 @@ import {
   deletePost,
   deleteSavedPost,
   getCurrentUser,
+  getPostById,
   getPosts,
   getPostsBySearch,
   getRecentPosts,
@@ -150,6 +151,14 @@ export const useGetPostsBySearch = (query) => {
     queryKey: ["getSearchedPosts", query],
     queryFn: () => getPostsBySearch(query),
     enabled: !!query,
+  });
+};
+
+export const useGetPostById = (postId) => {
+  return useQuery({
+    queryKey: ["getPostById", postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId,
   });
 };
 

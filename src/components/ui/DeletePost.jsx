@@ -9,7 +9,6 @@ import { HiOutlineTrash } from "react-icons/hi2";
      useDeletePost();
  
    const { $id: postId, imageId } = post;
-   console.log(postId, imageId);
  
    async function handleConfirm() {
      const statusCode = await deletePost({ postId, imageId });

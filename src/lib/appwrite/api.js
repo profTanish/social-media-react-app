@@ -348,6 +348,24 @@ export async function getPostsBySearch(searchQuery) {
   }
 }
 
+export async function getPostById(postId) {
+  if (!postId) throw Error;
+
+  try {
+    const post = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    );
+
+    if (!post) throw Error;
+
+    return post;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getUsers() {
   try {
     const users = await databases.listDocuments(

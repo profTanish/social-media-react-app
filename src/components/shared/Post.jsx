@@ -9,6 +9,7 @@ import DeletePost from "../ui/DeletePost";
  const Post = ({ post }) => {
    const {
     creator: { $id: creatorId, name: userName, imageUrl: userImageUrl },
+    $id: postId,
      caption,
      imageUrl: postImageUrl,
      imageId,
@@ -22,7 +23,7 @@ import DeletePost from "../ui/DeletePost";
    const postFormatedDate = formatDate(postCreatedAt);
  
    return (
-     <div className="bg-dark-2 p-5 rounded-md max-w-screen-sm flex flex-col gap-5">
+     <Link className="bg-dark-2 p-5 rounded-md max-w-screen-sm flex flex-col gap-5">
        <div className="flex items-center justify-between">
          <figure className="flex items-center gap-4">
            <Link to={`/profile/${creatorId}`}>
@@ -57,9 +58,12 @@ import DeletePost from "../ui/DeletePost";
  
        <p>{caption}</p>
 
-       <div className="rounded-md overflow-hidden text-center">
+       <Link
+         to={`posts/${postId}`}
+         className="rounded-md overflow-hidden text-center"
+       >
          <img src={postImageUrl} alt="post" />
-       </div>
+       </Link>
 
        <PostOperations post={post} userId={user.id} />
  
