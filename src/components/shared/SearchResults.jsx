@@ -1,11 +1,11 @@
 import Loader from "./Loader";
  import PostsList from "./PostsList";
  
- const SearchResults = ({ searchedPosts, isSearchingPosts }) => {
-   if (isSearchingPosts) return <Loader />;
+ const SearchResults = ({ searchedResults, isSearching }) => {
+   if (isSearching) return <Loader />;
  
-   if (searchedPosts && searchedPosts.documents.length > 0)
-     return <PostsList posts={searchedPosts.documents} />;
+   if (searchedResults && searchedResults.documents.length > 0)
+     return <PostsList posts={searchedResults.documents} />;
  
    return (
      <p className="text-sm text-light-2">

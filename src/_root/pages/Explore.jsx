@@ -62,8 +62,8 @@ const Explore = () => {
 
       {shouldShowSearchResults ? (
         <SearchResults
-          searchedPosts={searchedPosts}
-          isSearchingPosts={isSearchingPosts}
+          searchedResults={searchedPosts}
+          isSearching={isSearchingPosts}
         />
       ) : shouldShowPosts ? (
         <p>You've reached the end.</p>

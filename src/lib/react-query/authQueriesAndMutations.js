@@ -13,6 +13,7 @@ import {
   getPosts,
   getPostsBySearch,
   getRecentPosts,
+  getUsers,
   likePost,
   loginAccount,
   logoutAccount,
@@ -148,5 +149,12 @@ export const useGetPostsBySearch = (query) => {
     queryKey: ["getSearchedPosts", query],
     queryFn: () => getPostsBySearch(query),
     enabled: !!query,
+  });
+};
+
+export const useGetUsers = () => {
+  return useQuery({
+    queryKey: ["getUsers"],
+    queryFn: getUsers,
   });
 };
