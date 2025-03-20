@@ -16,7 +16,12 @@ const PostDetails = () => {
      user: { id: userId },
    } = useUser();
  
-   if (isLoading) return <Loader />;
+   if (isLoading)
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <Loader />
+      </div>
+    );
  
    const {
      imageUrl,

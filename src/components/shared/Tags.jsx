@@ -1,6 +1,6 @@
 const Tags = ({ tags }) => {
     return (
-        <ul className="text-sm text-primary-blue mt-2.5">
+        <ul className="text-sm text-primary-blue mt-2.5 flex items-center gap-2.5">
             {tags.map((tag) => (
                 <li key={tag}>#tag</li>
             ))}
