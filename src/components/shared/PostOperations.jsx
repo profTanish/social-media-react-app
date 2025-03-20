@@ -62,7 +62,7 @@ import {
     };
   
     return (
-      <div className="flex items-center justify-between text-xl">
+      <div className="flex items-center justify-between text-xl gap-4">
         <div className="flex items-center gap-2.5">
           {isLiked(likes, userId) ? (
             <HiHeart
@@ -70,7 +70,10 @@ import {
               onClick={onLikePost}
             />
           ) : (
-            <HiOutlineHeart className="cursor-pointer" onClick={onLikePost} />
+            <HiOutlineHeart
+             className="cursor-pointer hover:text-danger-1"
+             onClick={onLikePost}
+           />
           )}
           <p className="text-sm">{likes.length}</p>
         </div>
@@ -79,7 +82,10 @@ import {
         ) : isSaved ? (
           <HiBookmark className="cursor-pointer" onClick={onSavePost} />
         ) : (
-          <HiOutlineBookmark className="cursor-pointer" onClick={onSavePost} />
+          <HiOutlineBookmark
+           className="cursor-pointer hover:fill-light-1"
+           onClick={onSavePost}
+         />
         )}
       </div>
     );

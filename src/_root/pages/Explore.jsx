@@ -46,7 +46,7 @@ const Explore = () => {
         <HiMagnifyingGlass className="absolute top-1/2 left-2.5 translate-y-[-50%] opacity-30 text-xl" />
       </div>
 
-      <div className="flex items-center justify-between mt-5">
+      <div className="flex items-center justify-between mt-5 mb-8">
          <h3>Recent Post</h3>
          <div className="flex items-center gap-4 text-light-2">
            <button className="text-light-1">Feeds</button>
