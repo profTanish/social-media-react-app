@@ -5,6 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
+  EditProfile,
   createPost,
   createUserAccount,
   deletePost,
@@ -173,5 +174,22 @@ export const useGetSavedPosts = () => {
   return useQuery({
     queryKey: ["getRecentPosts"],
     queryFn: getSavedPosts,
+  });
+};
+
+export const useEditProfile = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (user) => EditProfile(user),
+    onSuccess: () => {
+      toast.success("User profile successfully edited!");
+      queryClient.invalidateQueries({
+        queryKey: ["getCurrentUser"],
+      });
+    },
+    onError: () => {
+      toast.error("Something went wrong...");
+    },
   });
 };

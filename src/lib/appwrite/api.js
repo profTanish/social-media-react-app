@@ -397,3 +397,50 @@ export async function getSavedPosts() {
     console.log(error);
   }
 }
+
+export async function EditProfile(user) {
+  const hasFileToUpdate = user.image.length > 0;
+  try {
+    let image = {
+      imageUrl: user.imageUrl,
+      imageId: user.imageId,
+    };
+
+    if (hasFileToUpdate) {
+      const uploadedFile = await uploadFile(user.image[0]);
+      if (!uploadedFile) throw Error;
+
+      const imagePath = getFilePreview(uploadedFile.$id);
+      if (!imagePath) {
+        await deleteFile(uploadedFile.$id);
+        throw Error;
+      }
+
+      image = { ...image, imageUrl: imagePath, imageId: uploadedFile.$id };
+    }
+
+    const updatedUser = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      user.userId,
+      {
+        name: user.name,
+        bio: user.bio,
+        imageUrl: image.imageUrl,
+        imageId: image.imageId,
+      }
+    );
+
+    if (!updatedUser) {
+      if (hasFileToUpdate) await deleteFile(image.imageId);
+      throw Error;
+    }
+
+    // after success - delete previous avatar image
+    if (user.imageId && hasFileToUpdate) await deleteFile(user.imageId);
+
+    return updatedUser;
+  } catch (error) {
+    console.log(error);
+  }
+}
