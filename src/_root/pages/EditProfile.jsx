@@ -2,26 +2,58 @@ import { useForm } from "react-hook-form";
  import { useUser } from "../../context/AuthContext";
  import Button from "../../components/ui/Button";
  import Loader from "../../components/shared/Loader";
+ import {
+  useEditProfile,
+  useGetUserById,
+} from "../../lib/react-query/authQueriesAndMutations";
+import { useParams } from "react-router-dom";
  
  const EditProfile = () => {
-   const { user } = useUser();
-   console.log(user);
-   const isWorking = false;
+  const { id } = useParams();
  
-   const { register, formState, handleSubmit, reset } = useForm({
-     name: user?.name,
-     username: user?.username,
-     image: [],
-     email: user?.email,
-     bio: user?.bio,
+  const { user, setUser } = useUser();
+  const { mutateAsync: editProfile, isLoading: isEditing } = useEditProfile();
+  const { data: currentUser } = useGetUserById(id || "");
+
+  const { register, formState, handleSubmit } = useForm({
+    defaultValues: {
+      name: user.name,
+      username: user.username,
+      image: [],
+      email: user.email,
+      bio: user.bio,
+    },
    });
    const { errors } = formState;
  
-   function onSubmit(data) {
-     console.log(data);
-   }
- 
    const { imageUrl } = user;
+
+   if (!currentUser)
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <Loader />
+      </div>
+    );
+
+  async function onSubmit(data) {
+    const editedProfile = await editProfile({
+      userId: currentUser.$id,
+      name: data.name,
+      username: data.username,
+      bio: data.bio,
+      image: data.image,
+      imageUrl: currentUser.imageUrl,
+      imageId: currentUser.imageId,
+    });
+
+    setUser({
+      ...user,
+      name: editedProfile?.name,
+      username: editedProfile?.username,
+      bio: editedProfile?.bio,
+      imageUrl: editedProfile?.imageUrl,
+    });
+  }
  
    return (
      <div>
@@ -51,6 +83,7 @@ import { useForm } from "react-hook-form";
              {...register("image")}
              accept="image/*"
              className="hidden"
+             disabled={isEditing}
            />
            {errors?.image?.message && (
              <p className="text-danger-1 text-sm">{errors?.image?.message}</p>
@@ -68,6 +101,7 @@ import { useForm } from "react-hook-form";
                id="name"
                {...register("name")}
                className="input bg-dark-3"
+               disabled={isEditing}
              />
              {errors?.name?.message && (
                <p className="text-danger-1 text-sm">{errors?.name?.message}</p>
@@ -84,6 +118,7 @@ import { useForm } from "react-hook-form";
                id="username"
                {...register("username")}
                className="input bg-dark-3"
+               disabled={isEditing}
              />
              {errors?.username?.message && (
                <p className="text-danger-1 text-sm">
@@ -103,6 +138,7 @@ import { useForm } from "react-hook-form";
              id="email"
              {...register("email")}
              className="input bg-dark-3"
+             disabled={isEditing}
            />
            {errors?.email?.message && (
              <p className="text-danger-1 text-sm">{errors?.email?.message}</p>
@@ -118,6 +154,7 @@ import { useForm } from "react-hook-form";
              id="bio"
              {...register("bio")}
              className="textarea bg-dark-3"
+             disabled={isEditing}
            />
            {errors?.bio?.message && (
              <p className="text-danger-1 text-sm">{errors?.bio?.message}</p>
@@ -128,12 +165,12 @@ import { useForm } from "react-hook-form";
            <button
              type="reset"
              className="btn btn-secondary"
-             disabled={isWorking}
+             disabled={isEditing}
            >
              Clear
            </button>
            <Button>
-             {isWorking ? (
+             {isEditing ? (
                <div className="flex justify-center items-center gap-2">
                  <Loader /> Loading...
                </div>

@@ -410,7 +410,7 @@ export async function EditProfile(user) {
       const uploadedFile = await uploadFile(user.image[0]);
       if (!uploadedFile) throw Error;
 
-      const imagePath = getFilePreview(uploadedFile.$id);
+      const imagePath = await getFilePreview(uploadedFile.$id);
       if (!imagePath) {
         await deleteFile(uploadedFile.$id);
         throw Error;
@@ -419,6 +419,7 @@ export async function EditProfile(user) {
       image = { ...image, imageUrl: imagePath, imageId: uploadedFile.$id };
     }
 
+    console.log(image.imageUrl);
     const updatedUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
@@ -440,6 +441,22 @@ export async function EditProfile(user) {
     if (user.imageId && hasFileToUpdate) await deleteFile(user.imageId);
 
     return updatedUser;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserById(userId) {
+  try {
+    const user = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      userId
+    );
+
+    if (!user) throw Error;
+
+    return user;
   } catch (error) {
     console.log(error);
   }

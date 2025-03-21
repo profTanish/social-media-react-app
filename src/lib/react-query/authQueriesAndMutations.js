@@ -16,6 +16,7 @@ import {
   getPostsBySearch,
   getRecentPosts,
   getSavedPosts,
+  getUserById,
   getUsers,
   likePost,
   loginAccount,
@@ -177,15 +178,26 @@ export const useGetSavedPosts = () => {
   });
 };
 
+export const useGetUserById = (userId) => {
+  return useQuery({
+    queryKey: ["getUserById", userId],
+    queryFn: () => getUserById(userId),
+    enabled: !!userId,
+  });
+};
+
 export const useEditProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (user) => EditProfile(user),
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("User profile successfully edited!");
       queryClient.invalidateQueries({
         queryKey: ["getCurrentUser"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserById", data?.$id],
       });
     },
     onError: () => {
