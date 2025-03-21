@@ -17,8 +17,9 @@ import AuthLayout from "./_auth/AuthLayout";
    Profiles,
    Saved,
    Settings,
+   PostDetails,
+   EditProfile,
  } from "./_root/pages";
- import PostDetails from "./_root/pages/PostDetails";
  
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
                 <Route path="/posts/:id" element={<PostDetails />} />
                 <Route path="/profiles" element={<Profiles />} />
                 <Route path="/profile/:id" element={<Profile />} />
+                <Route path="/edit-profile/:id" element={<EditProfile />} />
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/settings" element={<Settings />} />
               </Route>

@@ -74,7 +74,7 @@ import DeletePost from "../ui/DeletePost";
            </li>
          ))}
        </ul>
-     </div>
+     </Link>
    );
  };
  
