@@ -22,7 +22,7 @@ const Topbar = () => {
   return (
     <section className="flex items-center justify-end p-5 bg-dark-2 border-b border-gray-800">
       <div className="flex items-center gap-4">
-       <Link to={`/edit-profile/${id}`}>
+       <Link to={`/profile/${id}`}>
           <div className="flex items-center gap-4">
             <p className="text-sm">{name}</p>
             <img src={imageUrl} alt="avatar" className="h-8 w-8 rounded-full" />

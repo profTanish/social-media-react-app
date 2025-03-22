@@ -1,13 +1,16 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
 import { useGetUserById } from "../../lib/react-query/authQueriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import PostsList from "../../components/shared/PostsList";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 
 const Profile = () => {
   const { id } = useParams();
-   const { user } = useUser();
+  const {
+    user: { id: userId },
+  } = useUser();
  
    const { data: profile, isLoading } = useGetUserById(id || "");
  
@@ -19,15 +22,17 @@ const Profile = () => {
      );
  
    const {
+    $id: profileId,
      imageUrl: profileAvatarUrl,
      name: profileName,
      username: profileUsername,
+     bio,
      posts,
    } = profile;
  
    return (
      <div className="w-full">
-       <figure className="flex gap-8 mb-20">
+       <figure className="flex gap-8">
          <div className="flex items-center gap-4">
            <img
              src={profileAvatarUrl}
@@ -51,7 +56,16 @@ const Profile = () => {
              </p>
            </div>
          </div>
+
+         {profileId === userId && (
+           <Link to={`/edit-profile/${userId}`} className="flex gap-2.5 mt-5">
+             <HiOutlinePencilSquare className="text-xl text-primary-blue" />
+             <p>Edit Profile</p>
+           </Link>
+         )}
        </figure>
+
+       <p className="text-light-2 mt-5 mb-20">{bio}</p>
  
        <PostsList posts={posts} showUser={false} />
      </div>
