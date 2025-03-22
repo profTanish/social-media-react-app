@@ -29,6 +29,8 @@ const Profile = () => {
      bio,
      posts,
    } = profile;
+
+   const numPosts = posts.length;
  
    return (
      <div className="w-full">
@@ -49,7 +51,7 @@ const Profile = () => {
  
            <div className="flex items-center gap-4 text-lg mt-auto">
              <p>
-               <span className="text-primary-blue">0</span> posts
+               <span className="text-primary-blue">{numPosts}</span> posts
              </p>
              <p>
                <span className="text-primary-blue">0</span> friends
