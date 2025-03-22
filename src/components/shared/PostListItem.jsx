@@ -3,17 +3,12 @@ import { formatDate } from "../../lib/utils";
 import PostOperations from "./PostOperations";
 import { useUser } from "../../context/AuthContext";
 
-const PostListItem = ({ post }) => {
-  // const {
-  //   user: { id: creatorId, name: creatorName, imageUrl: creatorAvatarUrl },
-  // } = useUser();
-
+const PostListItem = ({ post, showUser  }) => {
   const {
-    user: { id: creatorId, name: creatorName, imageUrl: creatorAvatarUrl },
+    user: { id: userId },
   } = useUser();
 
   const { imageUrl, $updatedAt: postUpdatedAt } = post;
-
 
   const postFormatedDate = formatDate(postUpdatedAt);
 
@@ -24,23 +19,25 @@ const PostListItem = ({ post }) => {
       </Link>
 
       <div className="flex items-center justify-between py-4">
-        <figure className="flex items-center gap-4">
-          <Link to={`/profile/${creatorId}`}>
-            <div className="flex items-center gap-4">
-              <img
-                src={creatorAvatarUrl}
-                alt="avatar"
-                className="h-8 w-8 rounded-full"
-              />
+      {showUser && (
+           <figure className="flex items-center gap-4">
+             <Link to={`/profile/${post.creator.$id}`}>
+               <div className="flex items-center gap-4">
+                 <img
+                   src={post.creator.imageUrl}
+                   alt="avatar"
+                   className="h-8 w-8 rounded-full"
+                 />
+               </div>
+             </Link>
+             <div>
+               <p className="text-sm">{post.creator.name}</p>
+               <p className="text-xs text-light-2">{postFormatedDate}</p>
             </div>
-          </Link>
-          <div>
-            <p className="text-sm">{creatorName}</p>
-            <p className="text-xs text-light-2">{postFormatedDate}</p>
-          </div>
-        </figure>
+            </figure>
+         )}
 
-        <PostOperations post={post} userId={creatorId} />
+        <PostOperations post={post} userId={userId} />
       </div>
     </li>
   );

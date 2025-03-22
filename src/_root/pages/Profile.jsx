@@ -24,7 +24,6 @@ const Profile = () => {
      username: profileUsername,
      posts,
    } = profile;
-   console.log(profile);
  
    return (
      <div className="w-full">
@@ -54,7 +53,7 @@ const Profile = () => {
          </div>
        </figure>
  
-       <PostsList posts={posts} />
+       <PostsList posts={posts} showUser={false} />
      </div>
    );
 };
