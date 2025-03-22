@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useUser } from "../../context/AuthContext";
 import { formatDate } from "../../lib/utils";
 import PostOperations from "./PostOperations";
+import { useUser } from "../../context/AuthContext";
 
 const PostListItem = ({ post }) => {
   // const {
@@ -9,10 +9,11 @@ const PostListItem = ({ post }) => {
   // } = useUser();
 
   const {
-    imageUrl,
-    $updatedAt: postUpdatedAt,
-    creator: { $id: creatorId, name: creatorName, imageUrl: creatorAvatarUrl },
-  } = post;
+    user: { id: creatorId, name: creatorName, imageUrl: creatorAvatarUrl },
+  } = useUser();
+
+  const { imageUrl, $updatedAt: postUpdatedAt } = post;
+
 
   const postFormatedDate = formatDate(postUpdatedAt);
 
