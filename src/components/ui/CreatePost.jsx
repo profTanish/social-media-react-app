@@ -16,7 +16,14 @@ const CreatePost = () => {
             <img src={imageUrl} alt="avatar" className="h-8 w-8 rounded-full" />
           </div>
         </Link>
-        <p>Have something on your mind?</p>
+        <Modal>
+           <Modal.Open opens="post-form">
+             <p>Have something on your mind?</p>
+           </Modal.Open>
+           <Modal.Window name="post-form">
+             <CreatePostForm />
+           </Modal.Window>
+         </Modal>
       </div>
 
       <Modal>

@@ -8,13 +8,13 @@ const PostListItem = ({ post, showUser  }) => {
     user: { id: userId },
   } = useUser();
 
-  const { imageUrl, $updatedAt: postUpdatedAt } = post;
+  const { $id: postId, imageUrl, $updatedAt: postUpdatedAt } = post;
 
   const postFormatedDate = formatDate(postUpdatedAt);
 
   return (
     <li className="list-none">
-      <Link to="/">
+      <Link to={`/posts/${postId}`}>
         <img src={imageUrl} alt="thumbnail" className="rounded-md" />
       </Link>
 
