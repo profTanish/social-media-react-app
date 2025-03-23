@@ -382,22 +382,6 @@ export async function getUsers() {
   }
 }
 
-export async function getSavedPosts(userId) {
-  try {
-    const savedPosts = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.savedCollectionId,
-      [Query.orderDesc("$updatedAt")]
-    );
-    console.log(savedPosts);
-    if (!savedPosts) throw Error;
-
-    return savedPosts;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function EditProfile(user) {
   const hasFileToUpdate = user.image.length > 0;
   try {

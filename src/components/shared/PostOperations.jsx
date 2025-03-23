@@ -15,7 +15,7 @@ import {
   import Loader from "./Loader";
   
   const PostOperations = ({ post, userId }) => {
-    const likesList = post.likes.map((user) => user.$id);
+    const likesList = post?.likes?.map((user) => user.$id) || [];
   
     const { mutate: likePost } = useLikePost();
     const { mutate: savePost, isPending: isSavingPost } = useSavePost();
