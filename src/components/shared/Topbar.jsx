@@ -8,11 +8,13 @@ import {
   HiOutlineArrowRightStartOnRectangle,
   HiOutlineBell,
 } from "react-icons/hi2";
+import ConfirmLogout from "../ui/ConfirmLogout";
+import Modal from "../shared/Modal";
 
 const Topbar = () => {
   const navigate = useNavigate();
   const { user } = useUser();
-  const { mutate: logoutAccount, isSuccess } = useLogoutAccount();
+  const { mutate: logoutAccount, isSuccess, isPending } = useLogoutAccount();
 
   const { imageUrl, name, id } = user;
 
@@ -36,12 +38,16 @@ const Topbar = () => {
            <HiOutlineBell className="text-primary-blue text-2xl" />
          </button>
  
-        <button
-           className="p-2.5 hover:bg-primary-blue-30 rounded-full"
-           onClick={() => logoutAccount()}
-         >
-           <HiOutlineArrowRightStartOnRectangle className="text-primary-blue text-2xl" />
-         </button>
+         <Modal>
+           <Modal.Open opens="logout">
+             <button className="p-2.5 hover:bg-primary-blue-30 rounded-full">
+               <HiOutlineArrowRightStartOnRectangle className="text-primary-blue text-2xl" />
+             </button>
+           </Modal.Open>
+           <Modal.Window name="logout">
+             <ConfirmLogout disabled={isPending} onConfirm={logoutAccount} />
+           </Modal.Window>
+         </Modal>
       </div>
     </section>
   );
