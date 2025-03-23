@@ -36,7 +36,7 @@ const Profiles = () => {
         <HiMagnifyingGlass className="absolute top-1/2 left-2.5 translate-y-[-50%] opacity-30 text-xl" />
       </div>
 
-      <h3 className="text-lg font-medium mt-10">Players list:</h3>
+      <h3 className="text-lg font-medium mt-10">Profiles list:</h3>
 
       <ul>
         {" "}

@@ -50,7 +50,13 @@ export const useCreatePost = () => {
   return useMutation({
     mutationFn: (post) => createPost(post),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: "getRecentPosts" });
+      queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
+       queryClient.invalidateQueries({
+         queryKey: ["getPosts"],
+       });
+       queryClient.invalidateQueries({
+         queryKey: ["getCurrentUser"],
+       });
     },
   });
 };
