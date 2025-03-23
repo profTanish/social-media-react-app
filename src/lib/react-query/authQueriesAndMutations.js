@@ -177,10 +177,11 @@ export const useGetUsers = () => {
   });
 };
 
-export const useGetSavedPosts = () => {
+export const useGetSavedPosts = (userId) => {
   return useQuery({
     queryKey: ["getRecentPosts"],
-    queryFn: getSavedPosts,
+    queryFn: () => getSavedPosts(userId),
+    enabled: !!userId,
   });
 };
 

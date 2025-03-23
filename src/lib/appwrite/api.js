@@ -382,14 +382,14 @@ export async function getUsers() {
   }
 }
 
-export async function getSavedPosts() {
+export async function getSavedPosts(userId) {
   try {
     const savedPosts = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.savedCollectionId,
       [Query.orderDesc("$updatedAt")]
     );
-
+    console.log(savedPosts);
     if (!savedPosts) throw Error;
 
     return savedPosts;
