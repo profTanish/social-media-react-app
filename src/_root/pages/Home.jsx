@@ -4,24 +4,22 @@ import CreatePost from "../../components/ui/CreatePost";
 import { useGetRecentPosts } from "../../lib/react-query/authQueriesAndMutations";
 
 const Home = () => {
-  const {
-    data: posts,
-    isPending: isLoadingPost,
-    isError: isErrorPosts,
-  } = useGetRecentPosts();
+  const { data: posts, isPending: isLoadingPost } = useGetRecentPosts();
 
   return (
     <div className="w-full">
       <CreatePost />
-      {isLoadingPost && !posts ? (
-        <Loader />
-      ) : (
-        <ul className="flex flex-col flex-1 gap-9 w-full mt-8">
-          {posts?.documents.map((post) => (
-            <Post key={post.$id} post={post} />
-          ))}
-        </ul>
-      )}
+      <div className="max-w-screen-sm flex flex-col items-center w-full gap-6 md:gap-9 mt-8">
+         {isLoadingPost && !posts ? (
+           <Loader />
+         ) : (
+           <ul className="flex flex-col flex-1 gap-9 w-full">
+             {posts?.documents.map((post) => (
+               <Post key={post.$id} post={post} />
+             ))}
+           </ul>
+         )}
+       </div>
     </div>
   );
 };

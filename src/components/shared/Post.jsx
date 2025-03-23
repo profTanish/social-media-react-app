@@ -12,7 +12,6 @@ import DeletePost from "../ui/DeletePost";
     $id: postId,
      caption,
      imageUrl: postImageUrl,
-     imageId,
      location,
      tags,
      $createdAt: postCreatedAt,
@@ -23,7 +22,7 @@ import DeletePost from "../ui/DeletePost";
    const postFormatedDate = formatDate(postCreatedAt);
  
    return (
-     <Link className="bg-dark-2 p-5 rounded-md max-w-screen-sm flex flex-col gap-5">
+     <Link className="bg-dark-2 p-5 rounded-md flex flex-col gap-5">
        <div className="flex items-center justify-between">
          <figure className="flex items-center gap-4">
            <Link to={`/profile/${creatorId}`}>
