@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import { useGetUsers } from "../../lib/react-query/authQueriesAndMutations";
+import { useGetUsers } from "../../lib/react-query/queriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import ProfileListItem from "../../components/shared/ProfileListItem";
 import useDebounce from "../../hooks/useDebounce";

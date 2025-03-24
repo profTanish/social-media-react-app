@@ -1,7 +1,7 @@
 import { HiOutlineTrash } from "react-icons/hi2";
  import Modal from "../shared/Modal";
  import ConfirmDelete from "./ConfirmDelete";
- import { useDeletePost } from "../../lib/react-query/authQueriesAndMutations";
+ import { useDeletePost } from "../../lib/react-query/queriesAndMutations";
  import toast from "react-hot-toast";
  
  const DeletePost = ({ post }) => {

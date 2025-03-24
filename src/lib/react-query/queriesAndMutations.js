@@ -4,6 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+
 import {
   EditProfile,
   createPost,
@@ -23,6 +24,7 @@ import {
   savePost,
   updatePost,
 } from "../appwrite/api";
+
 import toast from "react-hot-toast";
  
 export const useCreateUserAccount = () => {
@@ -72,7 +74,7 @@ export const useLikePost = () => {
 
   return useMutation({
     mutationFn: ({ postId, likesArray }) => likePost(postId, likesArray),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getCurrentUser"] });

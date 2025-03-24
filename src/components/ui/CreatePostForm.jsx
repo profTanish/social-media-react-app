@@ -3,7 +3,7 @@ import Button from "./Button";
 import {
   useCreatePost,
   useUpdatePost,
-} from "../../lib/react-query/authQueriesAndMutations";
+} from "../../lib/react-query/queriesAndMutations";
 import { useUser } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import Loader from "../shared/Loader";

@@ -9,7 +9,7 @@ import {
     useGetCurrentUser,
     useLikePost,
     useSavePost,
-  } from "../../lib/react-query/authQueriesAndMutations";
+  } from "../../lib/react-query/queriesAndMutations";
   import { useEffect, useState } from "react";
   import { isLiked } from "../../lib/utils";
   import Loader from "./Loader";

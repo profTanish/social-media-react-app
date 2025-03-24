@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
-import { useGetUserById } from "../../lib/react-query/authQueriesAndMutations";
+import { useGetUserById } from "../../lib/react-query/queriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import PostsList from "../../components/shared/PostsList";
 import { HiOutlinePencilSquare } from "react-icons/hi2";

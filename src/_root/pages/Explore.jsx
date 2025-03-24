@@ -6,7 +6,7 @@ import PostsList from "../../components/shared/PostsList";
 import {
   useGetPosts,
   useGetPostsBySearch,
-} from "../../lib/react-query/authQueriesAndMutations";
+} from "../../lib/react-query/queriesAndMutations";
 import useDebounce from "../../hooks/useDebounce";
 import Loader from "../../components/shared/Loader";
 import { useInView } from "react-intersection-observer"

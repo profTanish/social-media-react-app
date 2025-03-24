@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useUser } from "../../context/AuthContext";
-import { useLogoutAccount } from "../../lib/react-query/authQueriesAndMutations";
+import { useLogoutAccount } from "../../lib/react-query/queriesAndMutations";
  
 import {
   HiOutlineArrowRightStartOnRectangle,

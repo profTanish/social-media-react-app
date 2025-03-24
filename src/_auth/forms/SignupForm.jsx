@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
  import {
   useCreateUserAccount,
   useLoginAccount,
- } from "../../lib/react-query/authQueriesAndMutations";
+ } from "../../lib/react-query/queriesAndMutations";
  import { useUser } from "../../context/AuthContext";
  
  const SignupForm = () => {

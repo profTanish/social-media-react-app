@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
- import { useGetPostById } from "../../lib/react-query/authQueriesAndMutations";
+ import { useGetPostById } from "../../lib/react-query/queriesAndMutations";
  import { useUser } from "../../context/AuthContext";
  import Loader from "../../components/shared/Loader";
  import {

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
-import { useLoginAccount } from "../../lib/react-query/authQueriesAndMutations";
+import { useLoginAccount } from "../../lib/react-query/queriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import toast from "react-hot-toast";
  

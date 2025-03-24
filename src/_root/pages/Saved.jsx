@@ -1,6 +1,6 @@
 import Loader from "../../components/shared/Loader";
  import PostListItem from "../../components/shared/PostListItem";
-import { useGetCurrentUser } from "../../lib/react-query/authQueriesAndMutations";
+import { useGetCurrentUser } from "../../lib/react-query/queriesAndMutations";
 
 const Saved = () => {
   const { data: currentUser, isLoading } = useGetCurrentUser();
