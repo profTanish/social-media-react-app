@@ -4,8 +4,8 @@ import { useUser } from "../../context/AuthContext";
 import { useLoginAccount } from "../../lib/react-query/queriesAndMutations";
 import Loader from "../../components/shared/Loader";
 import toast from "react-hot-toast";
- 
- const SigninForm = () => {
+
+const SigninForm = () => {
   const navigate = useNavigate();
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
@@ -55,7 +55,7 @@ import toast from "react-hot-toast";
             <p className="text-danger-1 text-sm">{errors?.email?.message}</p>
           )}
         </div>
-    
+
         <div className="mt-5">
           <label htmlFor="password" className="block mb-2.5">
             Password
@@ -98,7 +98,7 @@ import toast from "react-hot-toast";
         </p>
       </form>
     </div>
-);
+  );
 };
 
 export default SigninForm;
