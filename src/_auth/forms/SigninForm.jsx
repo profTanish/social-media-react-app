@@ -1,16 +1,19 @@
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
 import { useUser } from "../../context/AuthContext";
 import { useLoginAccount } from "../../lib/react-query/queriesAndMutations";
+
 import Loader from "../../components/shared/Loader";
-import toast from "react-hot-toast";
+import FormError from "../../components/ui/FormError";
 
 const SigninForm = () => {
   const navigate = useNavigate();
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  const { checkAuthUser } = useUser();
 
-  const { checkAuthUser, isPending: isUserLoading } = useUser();
   const { mutateAsync: loginAccount, isPending: isLoggingIn } =
     useLoginAccount();
 
@@ -49,11 +52,10 @@ const SigninForm = () => {
                 message: "Please provide a valid email address.",
               },
             })}
+            disabled={isLoggingIn}
             className="input"
           />
-          {errors?.email?.message && (
-            <p className="text-danger-1 text-sm">{errors?.email?.message}</p>
-          )}
+           {<FormError errors={errors} fieldName="email" />}
         </div>
 
         <div className="mt-5">
@@ -71,18 +73,17 @@ const SigninForm = () => {
                 message: "Password needs a minimum of 8 characters.",
               },
             })}
+            disabled={isLoggingIn}
             className="input"
           />
-          {errors?.password?.message && (
-            <p className="text-danger-1 text-sm">{errors?.password?.message}</p>
-          )}
+          {<FormError errors={errors} fieldName="password" />}
         </div>
         <div className="mt-2.5 mb-5">
           <input type="checkbox" id="remember" className="mr-2.5" />
           <label htmlFor="remember">Remember me</label>
         </div>
-        <button className="btn-form">
-          {isUserLoading ? (
+        <button className="btn-form" disabled={isLoggingIn}>
+          {isLoggingIn ? (
             <div className="flex justify-center items-center gap-2">
               <Loader /> Loading...
             </div>
