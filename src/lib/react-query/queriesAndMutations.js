@@ -26,7 +26,7 @@ import {
 } from "../appwrite/api";
 
 import toast from "react-hot-toast";
- 
+
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (user) => createUserAccount(user),
@@ -45,19 +45,15 @@ export const useLogoutAccount = () => {
   });
 };
 
-export const useCreatePost = () => {
-  const queryClient = useQueryClient();
+export const useGetPosts = () => {
+  return useInfiniteQuery({
+    queryKey: ["getPosts"],
+    queryFn: getPosts,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.documents.length === 0) return null;
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
 
-  return useMutation({
-    mutationFn: (post) => createPost(post),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
-       queryClient.invalidateQueries({
-         queryKey: ["getPosts"],
-       });
-       queryClient.invalidateQueries({
-         queryKey: ["getCurrentUser"],
-       });
+      return lastId;
     },
   });
 };
@@ -66,6 +62,39 @@ export const useGetRecentPosts = () => {
   return useQuery({
     queryKey: ["getRecentPosts"],
     queryFn: getRecentPosts,
+  });
+};
+
+export const useGetPostsBySearch = (query) => {
+  return useQuery({
+    queryKey: ["getSearchedPosts", query],
+    queryFn: () => getPostsBySearch(query),
+    enabled: !!query,
+  });
+};
+
+export const useGetPostById = (postId) => {
+  return useQuery({
+    queryKey: ["getPostById", postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId,
+  });
+};
+
+export const useCreatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (post) => createPost(post),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
+      queryClient.invalidateQueries({
+        queryKey: ["getPosts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getCurrentUser"],
+      });
+    },
   });
 };
 
@@ -86,7 +115,7 @@ export const useSavePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({userId, postId}) => savePost(userId, postId),
+    mutationFn: ({ userId, postId }) => savePost(userId, postId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getRecentPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getPosts"] });
@@ -105,13 +134,6 @@ export const useDeleteSavedPost = () => {
       queryClient.invalidateQueries({ queryKey: ["getPosts"] });
       queryClient.invalidateQueries({ queryKey: ["getCurrentUser"] });
     },
-  });
-};
-
-export const useGetCurrentUser = () => {
-  return useQuery({
-    queryKey: ["getCurrentUser"],
-    queryFn: getCurrentUser,
   });
 };
 
@@ -142,32 +164,10 @@ export const useDeletePost = () => {
   });
 };
 
-export const useGetPosts = () => {
-  return useInfiniteQuery({
-    queryKey: ["getPosts"],
-    queryFn: getPosts,
-    getNextPageParam: (lastPage) => {
-      if (lastPage && lastPage.documents.length === 0) return null;
-      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
-
-      return lastId;
-    },
-  });
-};
-
-export const useGetPostsBySearch = (query) => {
+export const useGetCurrentUser = () => {
   return useQuery({
-    queryKey: ["getSearchedPosts", query],
-    queryFn: () => getPostsBySearch(query),
-    enabled: !!query,
-  });
-};
-
-export const useGetPostById = (postId) => {
-  return useQuery({
-    queryKey: ["getPostById", postId],
-    queryFn: () => getPostById(postId),
-    enabled: !!postId,
+    queryKey: ["getCurrentUser"],
+    queryFn: getCurrentUser,
   });
 };
 
