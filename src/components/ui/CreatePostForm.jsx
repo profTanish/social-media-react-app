@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
-import Button from "./Button";
+import toast from "react-hot-toast";
+
 import {
   useCreatePost,
   useUpdatePost,
 } from "../../lib/react-query/queriesAndMutations";
 import { useUser } from "../../context/AuthContext";
-import toast from "react-hot-toast";
+
+import FormError from "./FormError";
 import Loader from "../shared/Loader";
 
 const CreatePostForm = ({ postToEdit = {}, onClose }) => {
@@ -17,7 +19,11 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
     
     const isWorking = isCreatingPost || isUpdatingPost;
 
-    const { $id: editId } = postToEdit;
+    const {
+        $id: editId,
+        imageId: postToEditImageId,
+        imageUrl: postToEditImageUrl,
+      } = postToEdit;
     const isEditSession = Boolean(editId);
 
     const { register, formState, handleSubmit, reset } = useForm({
@@ -41,12 +47,12 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
         if (isEditSession) {
             const updatedPost = await updatePost({
               ...data,
-              postId: postToEdit.$id,
-              imageId: postToEdit.imageId,
-              imageUrl: postToEdit.imageUrl,
+              postId: editId,
+              imageId: postToEditImageId,
+              imageUrl: postToEditImageUrl,
             });
       
-            if (!updatePost) toast.error("Error updating a post!");
+            if (!updatedPost) toast.error("Error updating a post!");
 
             reset();
             onClose?.();
@@ -85,11 +91,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                     className="textarea bg-dark-3"
                     disabled={isWorking}
                 />
-                {errors?.description?.message && (
-                    <p className="text-danger-1 text-sm">
-                        {errors?.description?.message}
-                    </p>
-                )}
+                {<FormError errors={errors} fieldName="description" />}
             </div>
 
             <div>
@@ -104,9 +106,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                     className="input bg-dark-3"
                     disabled={isWorking}
                 />
-                {errors?.location?.message && (
-                    <p className="text-danger-1 text-sm">{errors?.location?.message}</p>
-                )}
+                {<FormError errors={errors} fieldName="location" />}
             </div>
 
             <div>
@@ -121,9 +121,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                     className="file:px-5 file:py-3.5 file:mr-5 file:rounded-sm file:border-none file:bg-primary-blue file:text-light-1 file:cursor-pointer file:hover:bg-primary-blue-light file:transition-all file:duration-300"
                     disabled={isWorking}
                 />
-                {errors?.image?.message && (
-                    <p className="text-danger-1 text-sm">{errors?.image?.message}</p>
-                )}
+                {<FormError errors={errors} fieldName="image" />}
             </div>
 
             <div>
@@ -140,9 +138,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                     className="input bg-dark-3"
                     disabled={isWorking}
                 />
-                {errors?.tags?.message && (
-                    <p className="text-danger-1 text-sm">{errors?.tags?.message}</p>
-                )}
+                {<FormError errors={errors} fieldName="tags" />}
             </div>
 
             <div className="flex items-center gap-2 justify-end mt-5">
@@ -154,7 +150,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                 >
                     Cancel
                 </button>
-                <Button>
+                <button className="btn btn-primary" disabled={isWorking}>
                     {isWorking ? (
                         <div className="flex justify-center items-center gap-2">
                             <Loader /> Loading...
@@ -164,7 +160,7 @@ const CreatePostForm = ({ postToEdit = {}, onClose }) => {
                     ) : (
                         "Create a Post"
                     )}
-                </Button>
+                </button>
             </div>
         </form>
     );

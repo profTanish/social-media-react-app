@@ -1,7 +1,8 @@
+import { useGetRecentPosts } from "../../lib/react-query/queriesAndMutations";
+
 import Loader from "../../components/shared/Loader";
 import Post from "../../components/shared/Post";
 import CreatePost from "../../components/ui/CreatePost";
-import { useGetRecentPosts } from "../../lib/react-query/queriesAndMutations";
 
 const Home = () => {
   const { data: posts, isPending: isLoadingPost } = useGetRecentPosts();

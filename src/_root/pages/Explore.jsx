@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 
-import SearchResults from "../../components/shared/SearchResults";
-import PostsList from "../../components/shared/PostsList";
 import {
   useGetPosts,
   useGetPostsBySearch,
 } from "../../lib/react-query/queriesAndMutations";
 import useDebounce from "../../hooks/useDebounce";
-import Loader from "../../components/shared/Loader";
 import { useInView } from "react-intersection-observer"
 
+import Loader from "../../components/shared/Loader";
+import SearchResults from "../../components/shared/SearchResults";
+import PostsList from "../../components/shared/PostsList";
+
 const Explore = () => {
-  const { ref, inView } = useInView();
   const [query, setQuery] = useState("");
+
+  const { ref, inView } = useInView();
+  
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
   const debouncedQuery = useDebounce(query, 500);
   const { data: searchedPosts, isFetching: isSearchingPosts } =
