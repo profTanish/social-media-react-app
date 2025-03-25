@@ -9,7 +9,6 @@ import {
 
 import { useUser } from "../../context/AuthContext";
 import Loader from "../../components/shared/Loader";
-import Button from "../../components/ui/Button";
 import FormError from "../../components/ui/FormError";
 import LoaderCentered from "../../components/ui/LoaderCentered";
 

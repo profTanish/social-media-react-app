@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
+import { useInView } from "react-intersection-observer";
+
+import useDebounce from "../../hooks/useDebounce";
 
 import {
   useGetPosts,
   useGetPostsBySearch,
 } from "../../lib/react-query/queriesAndMutations";
-import useDebounce from "../../hooks/useDebounce";
-import { useInView } from "react-intersection-observer"
 
 import Loader from "../../components/shared/Loader";
 import SearchResults from "../../components/shared/SearchResults";
 import PostsList from "../../components/shared/PostsList";
+import LoaderCentered from "../../components/ui/LoaderCentered";
 
 const Explore = () => {
   const [query, setQuery] = useState("");
 
   const { ref, inView } = useInView();
-  
+
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
   const debouncedQuery = useDebounce(query, 500);
   const { data: searchedPosts, isFetching: isSearchingPosts } =
@@ -26,12 +28,7 @@ const Explore = () => {
     if (inView && !query) fetchNextPage();
   }, [inView, query, fetchNextPage]);
 
-  if (!posts)
-    return (
-      <div className="flex items-center justify-center w-full h-full">
-        <Loader />
-      </div>
-    );
+  if (!posts) return <LoaderCentered />;
 
   const shouldShowSearchResults = query !== "";
   const shouldShowPosts =
