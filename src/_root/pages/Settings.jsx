@@ -1,30 +1,55 @@
-import { HiOutlineChevronRight, HiOutlineUser } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  HiOutlineArrowRightStartOnRectangle,
+  HiOutlineBell,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineShieldExclamation,
+  HiOutlineUser,
+} from "react-icons/hi2";
+
+import { useLogoutAccount } from "../../lib/react-query/queriesAndMutations";
+
+import SettingItem from "../../components/ui/SettingItem";
 
 const Settings = () => {
+  const navigate = useNavigate();
+  const { mutate: logoutAccount, isSuccess } = useLogoutAccount();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(0);
+    }
+  }, [isSuccess, navigate]);
+
   return (
     <div className="w-full">
-      <Link to="/" className="block mb-12">
-        <img
-          src="/public/imgs/logo.svg"
-          alt="logo"
-          width="200px"
-          className="mx-auto"
-        />
-      </Link>
+      <h1 className="text-3xl text-center mb-12">Settings</h1>
 
-      <ul className="max-w-xl mx-auto">
-        <li className="bg-dark-2 p-5 rounded-md">
-          <button className="flex items-center justify-between gap-4 text-xl w-full">
-            <span className="flex items-center gap-4">
-              <span className="p-2.5 bg-primary-blue rounded-full">
-                <HiOutlineUser />
-              </span>
-              Account
-            </span>
-            <HiOutlineChevronRight />
-          </button>
-        </li>
+      <ul className="flex flex-col gap-4 max-w-xl mx-auto text-2xl">
+         <SettingItem icon={HiOutlineUser} label="Account" link="/account" />
+         <SettingItem
+           icon={HiOutlineBell}
+           label="Notifications"
+           link="/settings/notifications"
+         />
+         <SettingItem
+           icon={HiOutlineShieldExclamation}
+           label="Privacy Policy"
+           link="/settings/privacy"
+         />
+         <SettingItem
+           icon={HiOutlineQuestionMarkCircle}
+           label="Support"
+           link="/settings/support"
+         />
+         <SettingItem
+           icon={HiOutlineArrowRightStartOnRectangle}
+           label="Logout"
+           textClass="text-danger-1"
+           iconBgClass="bg-danger-1-opacity-30"
+           onClick={logoutAccount}
+         />
       </ul>
     </div>
   );

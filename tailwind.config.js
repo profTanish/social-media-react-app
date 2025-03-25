@@ -20,6 +20,7 @@
               "danger-1": "#F55656",
               "primary-blue-50": "#6482f080",
               "primary-blue-30": "#6482f01a",
+              "danger-1-opacity-30": "#f556564d",
               "danger-2": "#F22626",
               "success-1": "#31DE4B",
             },
