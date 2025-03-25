@@ -11,7 +11,7 @@ const SettingItem = ({
 }) => {
     return (
         <div>
-            <li className="bg-dark-2 transition-all duration-300 hover:bg-dark-3 px-5 py-3.5 rounded-md">
+            <li className="bg-dark-2 transition-all duration-300 hover:bg-dark-3 px-5 py-3.5 rounded-md border border-dark-3">
                 {onClick ? (
                     <button
                         className={`flex items-center justify-between gap-4 w-full ${textClass}`}

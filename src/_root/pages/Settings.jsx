@@ -27,7 +27,11 @@ const Settings = () => {
       <h1 className="text-3xl text-center mb-12">Settings</h1>
 
       <ul className="flex flex-col gap-4 max-w-xl mx-auto text-2xl">
-         <SettingItem icon={HiOutlineUser} label="Account" link="/account" />
+      <SettingItem
+           icon={HiOutlineUser}
+           label="Account"
+           link="/settings/account"
+         />
          <SettingItem
            icon={HiOutlineBell}
            label="Notifications"

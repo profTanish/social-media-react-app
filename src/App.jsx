@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
- 
+
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -7,26 +7,27 @@ import { QueryProvider } from "./lib/react-query/QueryProvider";
 import AuthProvider from "./context/AuthContext";
 
 import AuthLayout from "./_auth/AuthLayout";
- import SigninForm from "./_auth/forms/SigninForm";
- import SignupForm from "./_auth/forms/SignupForm";
- import RootLayout from "./_root/RootLayout";
- import {
-   Explore,
-   Home,
-   Profile,
-   Profiles,
-   Saved,
-   Settings,
-   PostDetails,
-   EditProfile,
- } from "./_root/pages";
- 
+import SigninForm from "./_auth/forms/SigninForm";
+import SignupForm from "./_auth/forms/SignupForm";
+import RootLayout from "./_root/RootLayout";
+import {
+  Explore,
+  Home,
+  Profile,
+  Profiles,
+  Saved,
+  Settings,
+  PostDetails,
+  EditProfile,
+} from "./_root/pages";
+import AccountSettings from "./components/ui/AccountSettings";
+
 const App = () => {
   return (
     <main>
       <QueryProvider>
         <BrowserRouter>
-        <AuthProvider>
+          <AuthProvider>
             <Routes>
               <Route element={<AuthLayout />}>
                 <Route path="/sign-in" element={<SigninForm />} />
@@ -42,6 +43,7 @@ const App = () => {
                 <Route path="/edit-profile/:id" element={<EditProfile />} />
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/settings/account" element={<AccountSettings />} />
               </Route>
             </Routes>
           </AuthProvider>
