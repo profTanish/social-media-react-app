@@ -4,10 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
 import { useLogoutAccount } from "../../lib/react-query/queriesAndMutations";
  
-import {
-  HiOutlineArrowRightStartOnRectangle,
-  HiOutlineBell,
-} from "react-icons/hi2";
+import { HiOutlineArrowRightStartOnRectangle } from "react-icons/hi2";
 import ConfirmLogout from "../ui/ConfirmLogout";
 import Modal from "../shared/Modal";
 
