@@ -161,7 +161,7 @@ const EditProfile = () => {
           >
             Clear
           </button>
-          <button className="btn btn-primary">
+          <button className="btn btn-primary" disabled={isEditing}>
             {isEditing ? (
               <div className="flex justify-center items-center gap-2">
                 <Loader /> Loading...

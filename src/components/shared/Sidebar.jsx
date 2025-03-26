@@ -12,12 +12,7 @@ const Sidebar = () => {
     return (
     <aside className="bg-dark-2 p-5 border-r border-gray-800 row-span-full">
        <Link to="/" className="block mt-5 mb-24">
-         <img
-           src="/public/imgs/logo.svg"
-           alt="logo"
-           width="200px"
-           className="mx-auto"
-         />
+       <img src="logo.svg" alt="logo" width="200px" className="mx-auto" />
        </Link>
 
           <ul className="flex flex-col gap-4">

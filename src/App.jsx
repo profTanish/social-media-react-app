@@ -22,6 +22,7 @@ import {
 } from "./_root/pages";
 import AccountSettings from "./components/ui/AccountSettings";
 import NotificationsSettings from "./components/ui/NotificationsSettings";
+import PrivacyPolicy from "./components/ui/PrivacyPolicy";
 
 const App = () => {
   return (
@@ -49,7 +50,7 @@ const App = () => {
                    path="/settings/notifications"
                    element={<NotificationsSettings />}
                  />
-                 <Route path="/settings/account" element={<AccountSettings />} />
+                 <Route path="/settings/privacy" element={<PrivacyPolicy />} />
                  <Route path="/settings/account" element={<AccountSettings />} />
               </Route>
             </Routes>
