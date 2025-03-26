@@ -18,7 +18,7 @@ const CreatePost = () => {
         </Link>
         <Modal>
            <Modal.Open opens="post-form">
-             <p>Have something on your mind?</p>
+             <p className="cursor-pointer">Have something on your mind?</p>
            </Modal.Open>
            <Modal.Window name="post-form">
              <CreatePostForm />
