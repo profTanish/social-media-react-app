@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { QueryProvider } from "./lib/react-query/QueryProvider";
-import AuthProvider from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/forms/SigninForm";

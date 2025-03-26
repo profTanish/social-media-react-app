@@ -22,7 +22,7 @@ import { createContext, useContext, useEffect, useState } from "react";
  
  const AuthContext = createContext(initialState);
  
- const AuthProvider = ({ children }) => {
+ export const AuthProvider = ({ children }) => {
    const navigate = useNavigate();
    const [user, setUser] = useState(initialUser);
    const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,6 +50,7 @@ import { createContext, useContext, useEffect, useState } from "react";
        return false;
      } catch (error) {
        console.log(error);
+       return false;
      } finally {
        setIsLoading(false);
      }
@@ -62,8 +63,9 @@ import { createContext, useContext, useEffect, useState } from "react";
        cookieFallback === "[]" ||
        cookieFallback === undefined ||
        cookieFallback === null
-     )
+      ) {
        navigate("/sign-up");
+      }
  
      checkAuthUser();
    }, []);
@@ -83,7 +85,5 @@ import { createContext, useContext, useEffect, useState } from "react";
      </AuthContext.Provider>
    );
  };
- 
- export default AuthProvider;
  
  export const useUser = () => useContext(AuthContext);
