@@ -65,13 +65,9 @@ export async function logoutAccount() {
 }
 
 export async function getAccount() {
-  try {
-    const curAccount = await account.get();
+  const curAccount = await account.get();
 
-    return curAccount;
-  } catch (error) {
-    console.log(error);
-  }
+  return curAccount;
 }
 
 export async function getCurrentUser() {
@@ -89,7 +85,7 @@ export async function getCurrentUser() {
 
     return curUser.documents.at(0);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -262,7 +258,9 @@ export async function updatePost(post) {
       image = { ...image, imageUrl: imagePath, imageId: uploadedImageFile.$id };
     }
 
-    const tags = post?.tags?.split(", ") || [];
+    const tags = post?.tags?.includes(", ")
+    ? post?.tags?.split(", ")
+    : post?.tags.split();
 
     const updatedPost = await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -273,7 +271,7 @@ export async function updatePost(post) {
         imageUrl: image.imageUrl,
         imageId: image.imageId,
         location: post.location,
-        tags: tags,
+        tags,
       }
     );
 
