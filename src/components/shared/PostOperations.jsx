@@ -23,18 +23,20 @@ import {
     const { mutate: savePost, isPending: isSavingPost } = useSavePost();
     const { mutate: deleteSavedPost, isPending: isDeletingSavedPost } =
       useDeleteSavedPost();
-    const { data: curUser } = useGetCurrentUser();
+    const { data: curUser, isLoading: isCurUserLoading } = useGetCurrentUser();
   
     const [likes, setLikes] = useState(likesList);
     const [isSaved, setIsSaved] = useState(false);
   
-    const savedPostRecord = curUser?.save.find(
-      (record) => record.post.$id === post.$id
+    const savedPostRecord = curUser?.save?.find(
+      (record) => record?.post?.$id === post?.$id
     );
   
     useEffect(() => {
-      setIsSaved(!!savedPostRecord); // !! - automatic boolean assigment '' => !'' => !true => false
-    }, [curUser, savedPostRecord]);
+      if (!isCurUserLoading) {
+        setIsSaved(!!savedPostRecord); // !! - automatic boolean assigment '' => !'' => !true => false
+      }
+    }, [curUser, savedPostRecord, isCurUserLoading]);
   
     const onLikePost = (e) => {
       e.stopPropagation();
@@ -62,6 +64,8 @@ import {
         setIsSaved(true);
       }
     };
+
+    if (isCurUserLoading) return <Loader />;
   
     return (
       <div className="flex items-center justify-between text-xl gap-4">
