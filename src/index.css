@@ -16,11 +16,11 @@ body {
     }
   
     .btn-form {
-      @apply bg-primary-blue border-2 border-primary-blue py-2.5 w-full rounded-md transition-all duration-300 hover:bg-transparent hover:border-light-1;
+      @apply bg-primary-blue  py-2.5 w-full rounded-md transition-all duration-300 hover:primary-blue-light disabled:opacity-50 disabled:cursor-not-allowed;
     }
 
     .btn {
-      @apply py-2.5 px-10 rounded-md transition-all duration-300;
+      @apply py-2.5 px-10 rounded-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
     }
   
     .btn-primary {

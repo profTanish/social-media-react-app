@@ -49,7 +49,6 @@ import { createContext, useContext, useEffect, useState } from "react";
  
        return false;
      } catch (error) {
-       console.log(error);
        return false;
      } finally {
        setIsLoading(false);
