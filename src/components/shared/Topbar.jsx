@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useUser } from "../../context/AuthContext";
+import { initialUser, useUser } from "../../context/AuthContext";
 import { useLogoutAccount } from "../../lib/react-query/queriesAndMutations";
  
 import { HiOutlineArrowRightStartOnRectangle } from "react-icons/hi2";
@@ -10,16 +9,17 @@ import Modal from "../shared/Modal";
 
 const Topbar = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
-  const { mutate: logoutAccount, isSuccess, isPending } = useLogoutAccount();
+  const { user, setUser, setIsAuthenticated } = useUser();
+  const { mutate: logoutAccount, isPending } = useLogoutAccount();
 
   const { imageUrl, name, id } = user;
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(0);
-    }
-  }, [isSuccess, navigate]);
+  const handleLogout = () => {
+    logoutAccount();
+    setIsAuthenticated(false);
+    setUser(initialUser);
+    navigate("/sign-in");
+  };
 
   return (
     <section className="flex items-center justify-end p-5 bg-dark-2 border-b border-gray-800">
@@ -38,7 +38,7 @@ const Topbar = () => {
              </button>
            </Modal.Open>
            <Modal.Window name="logout">
-             <ConfirmLogout disabled={isPending} onConfirm={logoutAccount} />
+             <ConfirmLogout disabled={isPending} onConfirm={handleLogout} />
            </Modal.Window>
          </Modal>
       </div>
